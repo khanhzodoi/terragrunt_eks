@@ -1,0 +1,13 @@
+# Namespace info
+namespace: demo
+
+# Configmap and Job info
+configMapName: rds-config-map
+jobName: test-database-connection
+
+
+# Database info
+databaseInstanceEndpoint: dev-demo-mysql-5-7.cf6ungkbvv3v.ap-southeast-1.rds.amazonaws.com
+databaseName: demo
+databaseUsername: master
+databasePassword: AVFoJ9RYAzLADcm7

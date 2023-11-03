@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMapName }}
+  namespace: {{ .Values.namespace }}
+data:
+  database-host: {{ .Values.databaseInstanceEndpoint }}
+  database-username: {{ .Values.databaseUsername }}
+  database-password: {{ .Values.databasePassword }}
+  database-name: {{ .Values.databaseName }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: 2-test-database-connection
+description: A Helm chart to test rds connection
+
+type: application
+version: 0.0.1

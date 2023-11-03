@@ -1,0 +1,44 @@
+# templates/job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.jobName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: mysql-client
+        image: mysql:5.7
+        env:
+          - name: database-host
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.configMapName }}
+                key: database-host
+          - name: database-username
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.configMapName }}
+                key: database-username
+          - name: database-password
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.configMapName }}
+                key: database-password
+          - name: database-name
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.configMapName }}
+                key: database-name
+        command:
+          - /bin/sh
+          - -c
+          - |
+            # Install MySQL client
+            apk --no-cache add mysql-client
+
+            # Test the database connection
+            mysql -h $(database-host) -u $(database-username) -p$(database-password) -e "SHOW DATABASES;"
+
+      restartPolicy: Never

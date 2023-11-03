@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fruit-ingress
+  namespace: staging
+  annotations:  
+    # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/issuer: "letsencrypt"
+
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: staging.khanhpham.uk
+    http:
+      paths:
+        - path: /apple
+          pathType: Exact
+          backend:
+            service:
+              name: apple-service
+              port:
+                number: 5678
+
+        - path: /banana
+          pathType: Prefix
+          backend:
+            service:
+              name: banana-service
+              port:
+                number: 5678  
+  tls:
+    - hosts:
+        - staging.khanhpham.uk
+      secretName: tls-fruit-staging
